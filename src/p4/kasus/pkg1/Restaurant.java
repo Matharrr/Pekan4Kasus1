@@ -36,6 +36,12 @@ public class Restaurant {
             System.out.printf("%d. %-15s[%-2d]\tRp. %,-10.2f\n", counter, nama_makanan[i], stok[i], harga_makanan[i]);
             counter++;
         }
+        System.out.println("====================================");
+        System.out.println("Silahkan pilih opsi terlebih dahulu");
+        System.out.println("1. Pesan makanan");
+        System.out.println("2. Tambah stok makanan");
+        System.out.println("99. Keluar");
+        System.out.print("Pilih menu: ");
     }
     
     
@@ -54,20 +60,17 @@ public class Restaurant {
     public static void nextId(){
         id++;
     }
-    /*
-    Mempesiapkan setter
-    */
+    //mempesiapkan setter
     public void setNamaMakanan(String[] nama_makanan){
         this.nama_makanan = nama_makanan;
     }
     public void setHargaMakanan(double[] harga_makanan){
         this.harga_makanan = harga_makanan;
-    }public void setStok(int[] stok){
+    }
+    public void setStok(int[] stok){
         this.stok = stok;
     }
-    /*
-    Mempersiapkan getter
-    */
+    //mempersiapkan getter
     public String[] getNamaMakanan(String[] nama_makanan){
         return nama_makanan;
     }
@@ -77,15 +80,16 @@ public class Restaurant {
     public int[] getStok(int[] stok){
         return stok;
     }
+
     /*
     Menambahkan method baru untuk pemesanan
     */
     public void pesanMakanan(int id, int jumlah) {
-        if (id >= 0 && id <= nama_makanan.length && stok[id] >= jumlah) {
-            stok[id] -= jumlah;
+        if (id >= 0 && id <= nama_makanan.length && stok[id-1] >= jumlah) {
+            stok[id-1] -= jumlah;
             System.out.println("Pesanan berhasil! Anda telah memesan " + jumlah + " " + nama_makanan[id]);
         } else {
-            System.out.println("Maaf, pesanan Anda tidak dapat diproses karena stok " + nama_makanan[id] + " tidak mencukupi.");
+            System.out.println("Maaf, pesanan Anda tidak dapat diproses karena stok " + nama_makanan[id] + " habis.");
         }
     }
     /*
@@ -101,5 +105,13 @@ public class Restaurant {
         id -= 1;
         pesanMakanan(id, jumlah);
         tampilMenuMakanan();
+    }
+    public void tambahStokMakanan(int id, int stok) {
+        if (id >= 0 && id <= this.stok.length) {
+            this.stok[id] += stok;
+            System.out.println("Stok " + nama_makanan[id] + " berhasil ditambah sebanyak " + stok + " buah.");
+        } else {
+            System.out.println("Maaf, ID makanan tidak tersedia.");
+        }
     }
 }
